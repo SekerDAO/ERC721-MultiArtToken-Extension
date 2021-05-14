@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.0;
 
-import "./ERC3440.sol";
+import "./EditionsExtension.sol";
 
 /**
  * @dev ERC721 token with editions extension.
  */
-contract MultiArtToken is ERC3440 {
+contract MultiArtToken is EditionsExtension {
 
     /**
      * @dev Sets `address artist` as the original artist to the account deploying the NFT.
@@ -37,7 +37,7 @@ contract MultiArtToken is ERC3440 {
     /**
      * @dev Signs a `tokenId` representing a print.
      */
-    function mintEdition(uint _editionNumbers, string memory _tokenURI) public {
+    function mintEdition(string memory _tokenURI,uint _editionNumbers) public {
         _createEditions(_tokenURI, _editionNumbers);
     }
 }

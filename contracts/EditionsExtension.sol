@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 /**
  * @dev ERC721 token with editions extension.
  */
-abstract contract ERC3440 is ERC721URIStorage {
+abstract contract EditionsExtension is ERC721URIStorage {
 
     // eip-712
     struct EIP712Domain {
@@ -41,7 +41,7 @@ abstract contract ERC3440 is ERC721URIStorage {
     mapping (uint256 => bytes) private _signatures;
 
     // the last nft minted
-    uint public topId;
+    uint public topId = 0;
     
     // A view to display the artist's address
     address public artist;
@@ -75,7 +75,7 @@ abstract contract ERC3440 is ERC721URIStorage {
      */
     function _createEditions(string memory _tokenURI, uint256 _editionSupply) internal virtual {
         require(msg.sender == artist, "ERC721Extensions: only the artist may create prints");
-        require(_editionSupply > 0, "ERC721Extensions: the edition supply is not set to more than 0");
+        require(_editionSupply <= 100, "ERC721Extensions: maybe limit to something reasonable?");
 
         originalIds.push(topId+1);
         editionSupplies[topId+1] = _editionSupply;
