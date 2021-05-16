@@ -41,17 +41,10 @@ abstract contract EditionsExtension is ERC721URIStorage {
     mapping (uint256 => bytes) private _signatures;
 
     // the last nft minted
-    uint public topId = 0;
+    uint public topId = 1;
     
     // A view to display the artist's address
     address public artist;
-
-    // A view to display the total number of prints created
-    // mapping original Id to number of prints
-    mapping (uint => uint) public editionSupplies;
-    
-    // A view to display an array of IDs that mark the original copy
-    uint[] public originalIds;
     
     // A signed token event
     event Signed(address indexed from, uint256 indexed tokenId);
@@ -71,18 +64,14 @@ abstract contract EditionsExtension is ERC721URIStorage {
 
     /**
      * @dev Creates `tokenIds` representing the printed editions.
-     * @param _tokenURI the metadata attached to each nft
+     * @param _editionSupply the number of prints
      */
     function _createEditions(string memory _tokenURI, uint256 _editionSupply) internal virtual {
-        require(msg.sender == artist, "ERC721Extensions: only the artist may create prints");
-        require(_editionSupply <= 100, "ERC721Extensions: maybe limit to something reasonable?");
+        require(_editionSupply > 0, "ERC721Extensions: the edition supply is not set to more than 0");
 
-        originalIds.push(topId+1);
-        editionSupplies[topId+1] = _editionSupply;
-
-        for(uint i=1; i < _editionSupply+1; i++) {
-            _mint(msg.sender, topId+i);
-            _setTokenURI(topId+i, _tokenURI);
+        for(uint i=0; i < _editionSupply; i++) {
+            _mint(msg.sender, topId);
+            _setTokenURI(topId, _tokenURI);
             topId++;
         }
     }

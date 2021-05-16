@@ -37,7 +37,7 @@ contract MultiArtToken is EditionsExtension {
     /**
      * @dev Signs a `tokenId` representing a print.
      */
-    function mintEdition(string memory _tokenURI,uint _editionNumbers) public {
+    function mintEdition(string memory _tokenURI, uint _editionNumbers) public {
         _createEditions(_tokenURI, _editionNumbers);
     }
 }
