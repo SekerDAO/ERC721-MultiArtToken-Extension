@@ -37,6 +37,8 @@ abstract contract EditionsExtension is ERC721URIStorage {
     );
 
     bytes32 public DOMAIN_SEPARATOR;
+
+    address public DAO;
     
     // Optional mapping for signatures
     mapping (uint256 => bytes) private _signatures;
@@ -49,6 +51,11 @@ abstract contract EditionsExtension is ERC721URIStorage {
     
     // A signed token event
     event Signed(address indexed from, uint256 indexed tokenId);
+
+    function _setDAO(address _daoAddress) internal virtual {
+        require(_daoAddress != address(0));
+        DAO = _daoAddress;
+    }
 
     /**
      * @dev Sets `artist` as the original artist.
