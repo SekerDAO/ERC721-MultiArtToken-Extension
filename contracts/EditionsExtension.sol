@@ -74,11 +74,11 @@ abstract contract EditionsExtension is ERC721URIStorage {
      * @dev Creates `tokenIds` representing the printed editions.
      * @param _editionSupply the number of prints
      */
-    function _createEditions(string[] memory _tokenURI, uint256 _editionSupply) internal virtual {
+    function _createEditions(string[] memory _tokenURI, uint256 _editionSupply, address _to) internal virtual {
         require(_editionSupply > 0, "ERC721Extensions: the edition supply is not set to more than 0");
 
         for(uint i=0; i < _editionSupply; i++) { //0, 1+2
-            _mint(msg.sender, topId);
+            _mint(_to, topId);
             _setTokenURI(topId, string(abi.encodePacked(_tokenURI[i])));
             topId++;
         }

@@ -42,8 +42,8 @@ contract MultiArtToken is EditionsExtension {
     /**
      * @dev Signs a `tokenId` representing a print.
      */
-    function mintEdition(string[] memory _tokenURI, uint _editionNumbers) public {
+    function mintEdition(string[] memory _tokenURI, uint _editionNumbers, address _to) public {
         require(msg.sender == artist || msg.sender == DAO, "only the artist or dao may mint");
-        _createEditions(_tokenURI, _editionNumbers);
+        _createEditions(_tokenURI, _editionNumbers, _to);
     }
 }
