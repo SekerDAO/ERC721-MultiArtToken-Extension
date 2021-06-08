@@ -27,14 +27,14 @@ contract MultiArtToken is EditionsExtension {
         ));
     }
 
-    function setDAOAddress(address _daoAddress) public {
+    function setDAOAddress(address _daoAddress) external {
         require(msg.sender == artist, "only the artist may set DAO");
         _setDAO(_daoAddress);
     }
     /**
      * @dev Signs a `tokenId` representing a print.
      */
-    function sign(uint256 tokenId, Signature memory message, bytes memory signature) public {
+    function sign(uint256 tokenId, Signature memory message, bytes memory signature) external {
         require(msg.sender == artist, "only the artist may sign");
         _signEdition(tokenId, message, signature);
     }
@@ -42,7 +42,7 @@ contract MultiArtToken is EditionsExtension {
     /**
      * @dev Signs a `tokenId` representing a print.
      */
-    function mintEdition(string[] memory _tokenURI, uint _editionNumbers, address _to) public {
+    function mintEdition(string[] memory _tokenURI, uint _editionNumbers, address _to) external {
         require(msg.sender == artist || msg.sender == DAO, "only the artist or dao may mint");
         _createEditions(_tokenURI, _editionNumbers, _to);
     }
